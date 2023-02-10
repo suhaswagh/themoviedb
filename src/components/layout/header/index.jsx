@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import AppContainer from "../app-container";
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../../pages/auth/redux/actions";
@@ -6,10 +6,12 @@ import * as homeActions from "../../../pages/home/redux/actions";
 import * as Selectors from "../../../pages/home/redux/selectors";
 import * as authSelectors from "../../../pages/auth/redux/selectors";
 import { Video, Globe, LogOut } from "react-feather";
+import useOutsideAlert from "../../../utils/useOutsideAlert";
 import * as Styles from "./styles";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const dropRef = useRef(null);
   const currentLang = useSelector(Selectors.selectCurrentLang);
   const isAuthenticated = useSelector(authSelectors.selectIsAuthenticated);
 
@@ -30,6 +32,8 @@ const Header = () => {
     setLangDrop(!langDrop);
   };
 
+  useOutsideAlert(dropRef, setLangDrop);
+
   return (
     <Styles.Container>
       <AppContainer>
@@ -41,7 +45,7 @@ const Header = () => {
             <Styles.LogoTextHolder>TMDB</Styles.LogoTextHolder>
           </Styles.LogoContainer>
           <Styles.ActionCOntainer>
-            <Styles.LangHolder>
+            <Styles.LangHolder ref={dropRef}>
               <Styles.LangWrapper onClick={() => handleLangDrop()}>
                 <Styles.TextHolder upper>{currentLang}</Styles.TextHolder>
                 <Styles.IconHolder>
