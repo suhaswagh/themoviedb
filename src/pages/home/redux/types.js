@@ -1,0 +1,5 @@
+export const actionTypes = {
+  SET_LOADING: "SET_LOADING",
+  SET_MOVIE_DATA: "SET_MOVIE_DATA",
+  SET_CURRENT_LANG: "SET_CURRENT_LANG",
+};
